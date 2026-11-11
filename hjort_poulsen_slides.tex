@@ -56,98 +56,70 @@
 \end{frame}
 
 %% =========================================================
-%% 1. 問い
-\begin{frame}{問い：発展途上国で格差を広げたICTは、途上国でも同じか}
-  \begin{itemize}
-    \item 先進国では、コンピュータやブロードバンドが\alert{高技能者に有利}に働き、賃金・雇用格差を広げた（技能偏向的技術変化, SBTC）
-    \item 途上国でICTがどう効くかの\alert{因果的な証拠はない}
+%% 問い
+\begin{frame}{問い：先進国で格差を広げたICTは、途上国でも同じか}
+  \begin{block}{背景}
     \begin{itemize}
-      \item ICTは「儲かりそうな場所」に導入される $\Rightarrow$ 単純比較では因果効果が分からない
+      \item 先進国：ICTは\alert{高技能者に有利}に働き、格差を拡大（SBTC）
+      \item 途上国：ICTは有望な場所に導入される $\Rightarrow$ \alert{因果効果は不明}
     \end{itemize}
-  \end{itemize}
-  \vspace{0.6em}
-  \begin{block}{本論文の問い}
-    アフリカ12か国で、高速インターネットの到来は\\
-    \textbf{(1) 雇用を増やすか}　\textbf{(2) 誰の雇用を増やすか}
   \end{block}
   \vspace{0.4em}
-  \textbf{答え}：就業確率は 2.2〜7.7\pp 上昇。低学歴層も含めて増え、格差はむしろ縮小
+  \begin{block}{問い}
+    アフリカで高速インターネットが使えるようになると\\
+    (1) 雇用は増えるか　(2) 誰の雇用が増えるか
+  \end{block}
+  \vspace{0.8em}
+    \begin{block}{結論}
+    働く人の割合が約2〜8ポイント上昇。増えたのは技能を要する仕事だが、学歴による差は小さく、格差は広げていない。
+  \end{block}
 \end{frame}
-
 %% =========================================================
-%% 2. 単純比較の問題とDAG
-\begin{frame}{単純比較の問題：幹線は経済的に有望な場所に敷かれる}
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
+%% 研究デザイン：自然実験
+%% =========================================================
+%% =========================================================
+%% 研究デザイン (1)：海底ケーブルという自然実験
+\begin{frame}{研究デザイン (1)：海底ケーブルの到着}
+  \begin{columns}[c]
+    \begin{column}{0.52\textwidth}
       \centering
-      \begin{tikzpicture}[
-          node distance=1.2cm and 1.6cm,
-          v/.style={draw,rounded corners,fill=softgray,align=center,font=\small,minimum height=2.2em},
-          u/.style={draw,dashed,rounded corners,align=center,font=\small,minimum height=2.2em},
-          >={Stealth[length=2mm]}]
-        \node[v] (D) {幹線への近さ\\（Connected）};
-        \node[v, right=of D] (Y) {雇用};
-        \node[u, above=1.0cm of $(D)!0.5!(Y)$] (U1) {時間不変の交絡\\（都市規模・立地）};
-        \node[u, below=1.0cm of $(D)!0.5!(Y)$] (U2) {時間変化する交絡\\（道路・電力網の整備）};
-        \draw[->,thick] (D) -- node[above,font=\scriptsize]{?} (Y);
-        \draw[->] (U1) -- (D); \draw[->] (U1) -- (Y);
-        \draw[->] (U2) -- (D); \draw[->] (U2) -- (Y);
+      \begin{tikzpicture}[x=0.75cm,y=0.75cm,font=\scriptsize]
+        % 海岸線
+        \def\coast{(0,3.0) .. controls (0.8,3.5) and (1.6,3.9) .. (2.3,3.95)
+                   -- (2.35,3.55) .. controls (2.6,3.3) .. (3.0,3.3)
+                   .. controls (3.5,3.3) .. (4.1,3.2) -- (4.15,2.75)
+                   .. controls (5.0,2.6) .. (6.0,2.25)}
+        % 海（斜線）
+        \begin{scope}
+          \clip \coast -- (6.0,5.4) -- (0,5.4) -- cycle;
+          \foreach \i in {-6,-5.4,...,6}{
+            \draw[black!35,thin] (\i,2) -- (\i+2.2,5.6);
+          }
+        \end{scope}
+        \draw[thick] \coast;
+        \node[fill=white,inner sep=1pt] at (0.8,4.9) {海};
+        \node at (0.8,1.2) {陸};
+        % 幹線
+        \draw[line width=1.2pt] (3.0,3.3) .. controls (2.95,2.4) .. (2.75,0.6);
+        \draw[line width=0.9pt] (2.88,1.9) -- (3.9,1.25);
+        \draw[line width=0.9pt] (2.82,1.55) -- (1.7,1.0);
+        \draw[line width=0.9pt,dashed] (2.75,0.6) -- (2.7,0.05);
+        \node[right] at (2.85,0.3) {国内の幹線網};
+        % 海底ケーブル
+        \draw[line width=2.4pt] (3.0,3.3) -- (3.25,4.85);
+        \draw[line width=1pt,dashed] (3.25,4.85) -- (3.32,5.35);
+        \node[above] at (3.32,5.35) {至 欧州};
+        \node[right,fill=white,inner sep=1pt] at (3.4,4.35) {海底ケーブル};
+        % 陸揚げ地点
+        \fill (3.0,3.3) circle (0.1);
+        \node[left] at (2.85,2.95) {陸揚げ地点};
       \end{tikzpicture}
-      \vspace{0.6em}
-      \begin{itemize}\small
-        \item 時間不変の交絡 $\to$ 固定効果で除去
-        \item 時間変化する交絡 $\to$ 平行トレンドの仮定が必要
-      \end{itemize}
     \end{column}
-    \begin{column}{0.50\textwidth}
-      \small 表1：ケーブル到着前の比較（接続 vs 非接続）\\[0.3em]
-      \begin{tabular}{lrr}
-        \toprule
-        & 接続 & 非接続 \\
-        \midrule
-        就業率（DHS）       & 0.67 & 0.68 \\
-        就業率（Afrobarometer） & 0.56 & 0.59 \\
-        就業率（南ア QLFS）  & 0.77 & 0.71 \\
-        毎日ネット利用      & 0.08 & 0.11 \\
-        夜間光              & 3.62 & 1.41 \\
-        \bottomrule
-      \end{tabular}
-      \vspace{0.5em}
-      \begin{itemize}\small
-        \item 南アや夜間光では水準差が大きい
-        \item DiDは\alert{水準差}は問わない。問題は\alert{トレンドの差}
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-%% =========================================================
-%% 3. 研究デザイン (1/3)
-\begin{frame}{研究デザイン (1)：自然実験と処置経路}
-  \begin{columns}[T]
-    \begin{column}{0.55\textwidth}
-      \textbf{処置経路}\\[0.3em]
-      \begin{tikzpicture}[
-          s/.style={draw,rounded corners,fill=softgray,font=\small,minimum width=2.6cm,minimum height=1.9em,align=center},
-          >={Stealth[length=2mm]}, node distance=0.35cm]
-        \node[s] (a) {欧州からの海底ケーブル};
-        \node[s,below=of a] (b) {沿岸の陸揚げ地点};
-        \node[s,below=of b] (c) {国内の陸上バックボーン網};
-        \node[s,below=of c,fill=accent!15] (d) {幹線から500m以内の地域};
-        \draw[->] (a)--(b); \draw[->] (b)--(c); \draw[->] (c)--(d);
-      \end{tikzpicture}
-      \vspace{0.4em}
-      \begin{itemize}\small
-        \item コンテンツの大半は国外でホスト $\Rightarrow$ 海底ケーブルが速度に直結
-        \item 国ごとに単一のバックボーン網、隣国へ波及なし\\$\Rightarrow$ \alert{国ごとに処置時点が一意}
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.43\textwidth}
-      \textbf{ケーブル到着時期（図2）}\\[0.3em]
+    \begin{column}{0.44\textwidth}
       \small
       \begin{tabular}{ll}
         \toprule
-        時期 & ケーブル \\
+        到着時期 & ケーブル \\
         \midrule
         2009Q3 & Seacom, TEAMS \\
         2009Q4 & LION \\
@@ -157,114 +129,253 @@
         2012Q4 & ACE \\
         \bottomrule
       \end{tabular}
-      \vspace{0.5em}
-      \begin{itemize}\small
-        \item 到着順はケーブルの\alert{地理的な経路}で決まる
-        \item 国ごとに時期がずれる $\Rightarrow$ staggered DiD
-      \end{itemize}
     \end{column}
   \end{columns}
+  \vspace{0.6em}
+  \begin{itemize}\small
+    \item 欧州からの海底ケーブルが本土に繋がった時、国内の幹線網を通じて、幹線の近くで高速インターネットが使えるようになる
+    \item 到着時期は国ごとにばらばら：2009〜2012年に6回に分けて到着
+    \item 到着時期は国際的なケーブルの経路と完成時期で決まり、\alert{各国の接続地域の景気とは無関係}と考えられる
+  \end{itemize}
 \end{frame}
 
 %% =========================================================
-%% 3. 研究デザイン (2/3)
-\begin{frame}{研究デザイン (2)：推定式と推定対象}
-  \textbf{推定式（式(1)）}
+%% 研究デザイン (2)：単純比較の問題と DiD
+\begin{frame}{研究デザイン (2)：単純比較の問題と DiD}
+  \begin{columns}[c]
+    \begin{column}{0.52\textwidth}
+      \centering
+      \begin{tikzpicture}[x=0.75cm,y=0.75cm,font=\scriptsize,
+          city/.style={draw,fill=white,line width=0.8pt,minimum size=7pt,inner sep=0pt}]
+        % 海岸線
+        \def\coast{(0,3.0) .. controls (0.8,3.5) and (1.6,3.9) .. (2.3,3.95)
+                   -- (2.35,3.55) .. controls (2.6,3.3) .. (3.0,3.3)
+                   .. controls (3.5,3.3) .. (4.1,3.2) -- (4.15,2.75)
+                   .. controls (5.0,2.6) .. (6.0,2.25)}
+        % 海（斜線）
+        \begin{scope}
+          \clip \coast -- (6.0,5.0) -- (0,5.0) -- cycle;
+          \foreach \i in {-6,-5.4,...,6}{
+            \draw[black!35,thin] (\i,2) -- (\i+2.2,5.2);
+          }
+        \end{scope}
+        \draw[thick] \coast;
+        \node[fill=white,inner sep=1pt] at (0.8,4.5) {海};
+        \node at (0.6,1.9) {陸};
+        % 幹線
+        \draw[line width=1.2pt] (3.0,3.3) .. controls (2.95,2.4) .. (2.75,0.6);
+        \draw[line width=0.9pt] (2.88,1.9) -- (3.9,1.25);
+        \draw[line width=0.9pt] (2.82,1.55) -- (1.7,1.0);
+        \draw[line width=0.9pt,dashed] (2.75,0.6) -- (2.7,0.05);
+        % 都市
+        \node[city] (c1) at (3.0,3.3) {};
+        \node[city] (c2) at (2.88,1.9) {};
+        \node[city] (c3) at (3.9,1.25) {};
+        \node[city] (c4) at (1.7,1.0) {};
+        \node[left] at (2.8,2.95) {港湾都市};
+        \node[right] at (4.0,1.25) {都市};
+        \node[left]  at (1.6,1.0) {都市};
+        \node[right] at (2.85,0.3) {国内の幹線網};
+      \end{tikzpicture}\\[0.2em]
+      {\scriptsize 幹線は都市と都市を結んで敷かれている}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \small
+      表1：ケーブル到着前の平均値\\[0.3em]
+      \begin{tabular}{lrr}
+        \toprule
+        & 接続 & 非接続 \\
+        \midrule
+        就業率（南ア QLFS）  & 0.77 & 0.71 \\
+        就業率（DHS）        & 0.67 & 0.68 \\
+        夜間光（所得の代理） & 3.62 & 1.41 \\
+        \bottomrule
+      \end{tabular}\\[0.3em]
+      {\tiny 就業率＝就業者の割合、夜間光＝衛星で測った明るさ}
+    \end{column}
+  \end{columns}
+  \vspace{0.6em}
+  \begin{itemize}\small
+    \item 幹線は\alert{便益が見込まれる場所}に敷かれる $\Rightarrow$ 無交絡は不成立
+    \item 実際、ケーブル到着前から、接続地域と非接続地域で就業率や夜間光に\alert{水準差}があった
+    \item 無交絡より弱い\alert{平行トレンド}の仮定で成立する DiD を分析手法に採用
+  \end{itemize}
+\end{frame}
+%% =========================================================
+%% 研究デザイン (3)：処置と処置時点
+\begin{frame}{研究デザイン (3)：処置の定義}
+  \small
   \[
-    y_{ijct} = \alpha + \beta\,\underbrace{\text{SubmarineCables}_{ct}\times\text{Connected}_i}_{\text{処置}}
-    + \underbrace{\delta_j\times\text{Connected}_i}_{\text{約10km四方のセル}\times\text{接続}}
+    D_{it} = \text{SubmarineCables}_{ct} \times \text{Connected}_i
+  \]
+  \vspace{-0.6em}
+  \begin{itemize}
+    \item $\text{Connected}_i$：$i$ の場所が幹線から\alert{500m以内}なら 1（500m〜10kmは0、10km超は除外）
+    \item $\text{SubmarineCables}_{ct}$：国 $c$ の幹線網が、時点 $t$ までに\alert{少なくとも1本}の海底ケーブルにつながっていれば 1
+    \item 処置は「高速インターネットが利用可能になったこと」とし、時差処置受け入れの形となる
+  \end{itemize}
+  \[
+    G_i =
+    \begin{cases}
+      T_{c(i)} & \text{Connected}_i = 1\\
+      \infty & \text{Connected}_i = 0
+    \end{cases}
+    \qquad T_c\text{：国 } c \text{ に最初のケーブルが届いた時点}
+  \]
+  \vspace{0.2em}
+  \begin{block}{時差処置受け入れ}
+    \begin{itemize}
+      \item 一度処置を受けたら、その後も受け続ける（途中で処置が外れない）
+      \item このとき処置経路 $(D_{i1},\dots,D_{iT})$ は、\alert{処置開始時点 $G_i$} だけで書ける。$G_i=\infty$ は処置を全く受けない
+    \end{itemize}
+  \end{block}
+\end{frame}
+%% =========================================================
+%% 研究デザイン (4)：データ
+\begin{frame}{研究デザイン (4)：データ}
+  \small
+  \textbf{アウトカム（個人）}\\[0.3em]
+  \begin{tabular}{llll}
+    \toprule
+    データ & 対象 & 時点 & 主な変数 \\
+    \midrule
+    DHS           & 8か国の個人 & 年：到着前後に調査   & 就業、職種 \\
+    Afrobarometer & 9か国の個人 & 年：到着前後に調査   & 就業、ネット利用 \\
+    南ア QLFS     & 南アの個人  & 四半期：2008〜2010年 & 就業、労働時間 \\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.8em}
+
+  \textbf{処置（地図）}\\[0.3em]
+  \begin{tabular}{ll}
+    \toprule
+    データ & 作る変数 \\
+    \midrule
+    海底ケーブルの地図（陸揚げ地点と到着時期） & $\text{SubmarineCables}_{ct}$ \\
+    到着前の幹線網の地図                       & $\text{Connected}_i$（幹線から500m以内） \\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.8em}
+
+  \begin{itemize}
+    \item いずれも\alert{繰り返しクロスセクション}（同じ個人を追わない）
+    \item 到着前後の変化を細かく見られるのは\alert{南アの QLFS だけ}
+  \end{itemize}
+\end{frame}
+%% =========================================================
+%% 研究デザイン (5)：推定式
+\begin{frame}{研究デザイン (5)：推定式}
+  \[
+    y_{ijct} = \alpha + \beta\,\underbrace{\text{SubmarineCables}_{ct}\times\text{Connected}_i}_{D_{it}}
+    + \underbrace{\delta_j\times\text{Connected}_i}_{\text{セル}\times\text{接続}}
     + \underbrace{\gamma_{ct}}_{\text{国}\times\text{時点}} + \varepsilon_{ijct}
   \]
-  \vspace{-0.5em}
-  \begin{itemize}\small
-    \item 処置群：幹線から500m以内　対照群：500m〜10km
-    \item 国$\times$時点FEにより、比較は常に\alert{同じ国・同じ時点の中}
+  \small
+  \textbf{添え字}：$i$ 個人、$j$ グリッドセル（約10km四方）、$c$ 国、$t$ 時点（年または四半期）
+  \vspace{0.6em}
+
+      \begin{block}{各項(二方向固定効果モデル $Y_{it}=\beta D_{it}+\mu_i+\delta_t+\varepsilon_{it}$ との対応)}
+        \small
+        \begin{itemize}
+          \item $y_{ijct}$：結果（就業など）、$D_{it}$：処置、$\beta$：処置の係数、$\varepsilon_{ijct}$：誤差
+          \item $\delta_j\times\text{Connected}_i$ $\leftrightarrow$ \alert{個体効果} $\mu_i$：セル$\times$接続ごとの水準差を除去
+          \item $\gamma_{ct}$ $\leftrightarrow$ \alert{時点効果} $\delta_t$：国ごとに分けたもの
+                $\Rightarrow$ 比較は常に\alert{同じ国・同じ時点の中}
+        \end{itemize}
+      \end{block}
+\end{frame}
+
+%% =========================================================
+%% 研究デザイン (6)：識別 (1/2)
+\begin{frame}{研究デザイン (6)：識別 ― 推定対象}
+  \textbf{知りたいもの}：国 $c$ の接続地域にとっての高速インターネットの効果
+  \[
+    ATT(T_c,t) = \underbrace{E[Y_t(T_c)\mid G=T_c,c]}_{\text{接続地域の実際のアウトカム}}
+    - \underbrace{E[Y_t(\infty)\mid G=T_c,c]}_{\text{ケーブルが来なかった場合}}
+  \]
+  \vspace{0.5em}
+  \begin{itemize}
+    \item 第1項は観測できる
+    \item 第2項は\alert{反実仮想}：接続地域には実際にケーブルが来ているので観測できない
   \end{itemize}
-  \vspace{0.3em}
-  \begin{block}{処置時点とATT}
-    \small
-    \[
-      G_i =
-      \begin{cases}
-        \text{国 } c(i) \text{ に最初のケーブルが届いた時点} & \text{Connected}_i = 1\\
-        \infty & \text{Connected}_i = 0
-      \end{cases}
-    \]
-    \[
-      ATT(g,t) = E\bigl[\,Y_{it}(g) - Y_{it}(\infty) \mid G_i = g\,\bigr]
-    \]
-    $\hat\beta$ は $ATT(g,t)$ の\alert{加重平均}。重みは OLS が決める（次々ページ）
+  \vspace{0.8em}
+  \begin{block}{問題}
+    反実仮想を、観測できる量でどう置き換えるか？
   \end{block}
 \end{frame}
 
 %% =========================================================
-%% 3. 研究デザイン (3/3)
-\begin{frame}{研究デザイン (3)：識別の3つの仮定と $\hat\beta$ の重み}
-  \begin{columns}[T]
-    \begin{column}{0.52\textwidth}
-      \small
-      \textbf{A1 平行トレンド}（同じ国・セル内で）
-      \[
-        E[\Delta Y_t(\infty)\mid G=g] = E[\Delta Y_t(\infty)\mid G=\infty]
-      \]
-      \textbf{A2 予測欠如}
-      \[
-        Y_{it}(g) = Y_{it}(\infty)\quad (t < g)
-      \]
-      \textbf{A3 SUTVA（無波及）}\\
-      非接続地域の潜在結果は、接続地域の処置に依存しない
-      \vspace{0.3em}
-      \begin{itemize}
-        \item A1 $\to$ スライド「平行トレンド」
-        \item A2, A3 $\to$ スライド「予測欠如とSUTVA」
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.46\textwidth}
-      \small
-      \textbf{$\hat\beta$ の重み}
-      \[
-        \hat\beta \;\approx\; \sum_c w_c\,\hat\beta_c
-      \]
-      \[
-        w_c \;\propto\; N_c\,p_c(1-p_c)\,q_c(1-q_c)
-      \]
-      \begin{itemize}
-        \item $p_c$：接続地域の割合、$q_c$：到着後の期の割合
-        \item 国内では対照が\alert{一度も処置されない}\\$\Rightarrow$ $w_c \ge 0$（禁じられた比較なし）
-        \item ただし\alert{単純平均ではない}\\観測が多く、接続・非接続が半々の国ほど重い
-      \end{itemize}
-    \end{column}
-  \end{columns}
-  \src{重みの式は均衡パネルでの近似（積み重ねたDiD：Wing, Freedman \& Hollingsworth 2024）}
+%% 研究デザイン (7)：識別 (2/2)
+\begin{frame}{研究デザイン (7)：識別 ― 反実仮想の置き換え}
+  \small
+  \textbf{仮定}：\alert{SUTVA・平行トレンド・予測欠如}（到着前 $t_0$、到着後 $t$）
+  \[
+    \begin{aligned}
+      E[Y_t(\infty)\mid G=T_c,c]
+      &= E[Y_{t_0}(\infty)\mid G=T_c,c] + E[Y_t(\infty)-Y_{t_0}(\infty)\mid G=T_c,c] \\[1.2em]
+      &= \underbrace{E[Y_{t_0}\mid G=T_c,c]}_{\text{接続地域の到着前}}
+       + \underbrace{E[Y_t - Y_{t_0}\mid G=\infty,c]}_{\text{非接続地域の変化}}
+    \end{aligned}
+  \]
+  \vspace{0.3em}
+    \begin{block}{結論：ATT は国 $c$ の中の DiD}
+    \[
+      ATT(T_c,t) = \underbrace{E[Y_t - Y_{t_0}\mid G=T_c,c]}_{\text{接続地域の変化}}
+      - \underbrace{E[Y_t - Y_{t_0}\mid G=\infty,c]}_{\text{非接続地域の変化}}
+    \]
+    \vspace{-0.8em}
+    \begin{itemize}
+      \item 式(1)の $\hat\beta$ は、この各国の DiD を標本平均で推定し、まとめたもの $\Rightarrow$ 因果効果として読める
+    \end{itemize}
+  \end{block}
+\end{frame}
+%% =========================================================
+%% 研究デザイン (8)：識別の仮定
+\begin{frame}{研究デザイン (8)：識別の仮定}
+  \small
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabular}{p{2.6cm}p{6.4cm}p{3.6cm}}
+    \toprule
+    仮定 & この研究での意味 & 確認 \\
+    \midrule
+    \textbf{予測欠如}
+      & 到着を見込んで、到着前に接続地域で採用などが増えていない
+      & 先行項、陸揚げ地点の除外 \\
+    \textbf{平行トレンド}
+      & ケーブルが来なければ、同じ国の接続地域と非接続地域の就業は同じだけ変化した
+      & 事前トレンド、プラセボ \\
+    \textbf{SUTVA}
+      & 非接続地域の就業は、近くの接続地域の処置に影響されない
+      & 距離帯別の効果、移住 \\
+    \bottomrule
+  \end{tabular}
+  \vspace{1em}
+  \begin{itemize}
+    \item いずれもデータで完全には検証できない $\Rightarrow$ 後半で\alert{どこまで支持されるか}を検討する
+  \end{itemize}
 \end{frame}
 
 %% =========================================================
-%% 4. 第1段階とITT
-\begin{frame}{第1段階とITT：ケーブルで速度と利用が増えた}
-  \small 表2：$\text{SubmarineCables}\times\text{Connected}$ の係数\\[0.3em]
-  \centering
-  \begin{tabular}{lccc}
-    \toprule
-    被説明変数 & 基本 & Connected$\times$時点FE & 平均 \\
-    \midrule
-    ネット速度（asinh, Akamai） & 0.362 (0.176) & 0.380 (0.191) & --- \\
-    毎日利用（0/1, Afrobarometer）& 0.082 (0.028) & 0.124 (0.050) & 0.10 \\
-    毎週利用（0/1, Afrobarometer）& 0.123 (0.032) & 0.142 (0.053) & 0.20 \\
-    \bottomrule
-  \end{tabular}
-  \raggedright
-  \vspace{0.6em}
+%% 研究デザイン (補足)：βの分解
+\begin{frame}{研究デザイン (補足)：$\hat\beta$ を国ごとに分解する}
+  固定効果を除いた処置を $\dot D_{it}$ とすると
+  \[
+    \hat\beta = \frac{\sum_{i,t}\dot D_{it}\,y_{it}}{\sum_{i,t}\dot D_{it}^2}
+    \;=\; \sum_c \underbrace{\frac{S_c}{\sum_{c'} S_{c'}}}_{w_c}\;
+    \underbrace{\frac{\sum_{i\in c}\dot D_{it}\,y_{it}}{S_c}}_{\hat\beta_c},
+    \qquad S_c = \sum_{i\in c}\dot D_{it}^2
+  \]
+  \vspace{0.3em}
   \begin{itemize}
-    \item 速度は約36\%上昇（測定方法上、\alert{過小推定}：脚注37）
-    \item 毎日利用は +8.2\pp（平均0.10に対して約8割増）。本文の「8 percent」は\%ptの意味
-    \item 価格低下も経路の一つ：到着後にブロードバンド料金が下落（付録図A1）
+    \item 固定効果が国の中に閉じる $\Rightarrow$ 国ごとに分けられる
+    \item $\hat\beta_c$：国 $c$ の DiD $\Rightarrow$ 仮定のもとで $ATT_c$
+    \item 国内では処置時点が共通 $\Rightarrow$ \alert{禁じられた比較は起きず}、$w_c>0$
   \end{itemize}
-  \begin{alertblock}{解釈}
-    $\hat\beta$ は「ネットを使った効果」ではなく\textbf{利用可能になったことの効果（ITT）}。\\
-    IVで利用の効果を推定してはいない
-  \end{alertblock}
+  \vspace{0.3em}
+  \begin{block}{まとめ}
+    $\hat\beta$ は各国の $ATT_c$ の重み付き平均（単純平均ではない）
+  \end{block}
 \end{frame}
-
 %% =========================================================
 %% 5. 主結果
 \begin{frame}{主結果：就業確率は 2.2〜7.7\%pt 上昇}
@@ -597,3 +708,7 @@
 \end{frame}
 
 \end{document}
+
+
+
+
