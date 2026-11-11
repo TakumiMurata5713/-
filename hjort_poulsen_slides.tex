@@ -414,8 +414,7 @@
 \end{frame}
 
 %% =========================================================
-%% 6. 平行トレンド (1/2)
-\begin{frame}{平行トレンド (1)：論文が示した証拠}
+\begin{frame}{平行トレンド (1)：南アフリカ}
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
       \centering
@@ -453,31 +452,32 @@
 
 %% =========================================================
 %% 6. 平行トレンド (2/2)
-\begin{frame}{平行トレンド (2)：事前検定の限界と追加でできること}
+\begin{frame}{平行トレンド (2)：南アフリカ以外}
   \begin{alertblock}{検証できる範囲が狭い}
     \begin{itemize}
       \item 事前トレンドを見られるのは\alert{南アのみ}（先行項は1期だけ）
       \item DHS・Afrobarometer は到着前の観測が1回程度 $\Rightarrow$ 図6のような確認ができない
+      \item 平行トレンドを崩しうる原因を一つづつ潰していく
     \end{itemize}
   \end{alertblock}
   \vspace{0.4em}
   \begin{columns}[T]
     \begin{column}{0.32\textwidth}
-      \textbf{事前検定の限界}\\[0.2em]
-      \small Roth (2022)\\
-      検定を通過したことに頼ると、推定にバイアスが残りうる。検出力も低い
+      \textbf{①道路・電線接続を統制}\\[0.2em]
+      \small{BNは既存インフラに沿って敷設。道路・電線接続を統制しても$\beta$は変わらず、統制変数の効果も小さい。}
     \end{column}
     \begin{column}{0.32\textwidth}
-      \textbf{感度解析}\\[0.2em]
-      \small Rambachan \& Roth (2023)\\
-      平行トレンドからのずれを許したとき、結論はどこまで保たれるか $\to$ \alert{本論文では未実施}
+      \textbf{②処置群の到着地・未到着地で比較}\\[0.2em]
+      \small{接続地域の成長トレンドを接続$\times$年FEをいれ推定、$\beta$は小さくならない。}
     \end{column}
     \begin{column}{0.32\textwidth}
-      \textbf{変数変換}\\[0.2em]
-      \small Roth \& Sant'Anna (2023)\\
-      平行トレンドは尺度に依存。労働時間・企業参入は asinh 変換。主結果の就業は 0/1 なので影響なし
+      \textbf{③陸揚げ地点を除外}\\[0.2em]
+      \small{陸揚げされる沿岸は陸揚げによる雇用で、正のバイアスを生む可能性。陸揚げ地点20km以内を除いても$\beta$は小さくならない。}
     \end{column}
   \end{columns}
+  ~\\
+  これらの議論と海底ケーブルの到着が経済的成長ではなく地理によるため、処置の時期が外生的であることを理由に平行でない懸念が
+  小さくなると主張している。
 \end{frame}
 
 %% =========================================================
